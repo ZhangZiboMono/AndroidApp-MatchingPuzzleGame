@@ -8,7 +8,7 @@ android {
         applicationId "com.example.matchingpuzzlegame"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 18
+        versionCode 19
         versionName "3.5"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
