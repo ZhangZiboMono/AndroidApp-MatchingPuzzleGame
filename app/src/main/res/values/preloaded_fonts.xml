@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/archivo_black</item>
+        <item>@font/audiowide</item>
+        <item>@font/baloo_bhai</item>
+        <item>@font/bungee_inline</item>
+        <item>@font/cherry_cream_soda</item>
+    </array>
+</resources>
