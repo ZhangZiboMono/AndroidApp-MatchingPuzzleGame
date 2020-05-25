@@ -59,6 +59,17 @@ public class WelcomeScreen extends AppCompatActivity {
 
         tv_1.startAnimation(animation);
         tv_2.startAnimation(animation);
+
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.but_letsgo);
+        but = (Button)findViewById(R.id.button);
+        but.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mp.start();
+                startActivity(new Intent(WelcomeScreen.this,HomePage.class));
+            }
+        });
+
     }
 
     @Override
@@ -81,15 +92,7 @@ public class WelcomeScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        final MediaPlayer mp = MediaPlayer.create(this, R.raw.but_letsgo);
-        but = (Button)findViewById(R.id.button);
-        but.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mp.start();
-                startActivity(new Intent(WelcomeScreen.this,MainActivity.class));
-            }
-        });
+
     }
 
     @Override

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_end"
+    android:background="@drawable/end_page_bg"
     tools:context=".EndingScreen">
 
     <ImageView
@@ -30,8 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_weight="1"
-        android:fontFamily="@font/bungee_inline"
+        android:layout_weight="0.8"
+        android:fontFamily="@font/rammetto_one"
         android:gravity="center"
         android:text="Well Done"
         android:textAlignment="center"
@@ -43,8 +43,8 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"
-        android:layout_weight="1"
-        android:fontFamily="sans-serif-smallcaps"
+        android:layout_weight="1.5"
+        android:fontFamily="@font/cherry_cream_soda"
         android:gravity="center"
         android:text="Your total score is:"
         android:textColor="#FFFFFF"
@@ -69,21 +69,31 @@
             android:id="@+id/restart"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="#52B0E3"
-            android:text="Restart game" />
+            android:background="@drawable/custom_guide_dialog"
+            android:fontFamily="@font/archivo_black"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Restart game"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/quit"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:background="#D3FF6D00"
-            android:text="Quit game" />
+            android:background="@drawable/custom_button_home3"
+            android:fontFamily="@font/archivo_black"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:text="Quit game"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

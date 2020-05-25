@@ -3,12 +3,14 @@ package com.example.matchingpuzzlegame;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -28,8 +30,10 @@ public class MainActivityL3 extends AppCompatActivity {
     MediaPlayer great;
 
     Button restart;
+    Button home;
     private View decorView;
     TextView tv_tried, tv_correct;
+    TextView score;
     ImageView iv_1, iv_2, iv_3, iv_4, iv_5, iv_6, iv_7, iv_8, iv_9, iv_10, iv_11, iv_12, iv_13, iv_14, iv_15, iv_16, iv_17, iv_18, iv_19, iv_20;
 
     Integer [] cardsArray = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
@@ -41,10 +45,11 @@ public class MainActivityL3 extends AppCompatActivity {
 
     int playerPoints = 0, cpuPoints = 0;
 
-    DecimalFormat df = new DecimalFormat("######0.00");
+    DecimalFormat df = new DecimalFormat("######0.0");
 
     double score3;
     double score2;
+    double score1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,7 @@ public class MainActivityL3 extends AppCompatActivity {
         setContentView(R.layout.main_l3);
 
         score2 = getIntent().getExtras().getDouble("Value2");
+        score1 = getIntent().getExtras().getDouble("Value1");
 
         l3Bgm = MediaPlayer.create(MainActivityL3.this,R.raw.bgm_l3);
         l3Bgm.start();
@@ -66,20 +72,7 @@ public class MainActivityL3 extends AppCompatActivity {
             }
         });
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivityL3.this);
-        alertDialogBuilder
-                .setTitle("Congratulations to level 3")
-                .setMessage("Here will be more question cards than last level, which number is up to 20.\n\nTry your best.")
-                .setCancelable(false)
-                .setPositiveButton("SURE", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        goodluck = MediaPlayer.create(MainActivityL3.this,R.raw.but_goodluck);
-                        goodluck.start();
-                    }
-                });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+        showGuide();
 
         restart = (Button)findViewById(R.id.restart);
         restart.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +80,19 @@ public class MainActivityL3 extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivityL3.class);
                 intent.putExtra("Value2",score2);
+                intent.putExtra("Value1",score1);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        home = (Button)findViewById(R.id.home);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomePage2_2.class);
+                intent.putExtra("Value1",score2-score1);
+                intent.putExtra("Value2",score1);
                 startActivity(intent);
                 finish();
             }
@@ -94,6 +100,7 @@ public class MainActivityL3 extends AppCompatActivity {
 
         tv_tried = (TextView)findViewById(R.id.tv_tried);
         tv_correct = (TextView)findViewById(R.id.tv_correct);
+        score = (TextView)findViewById(R.id.score);
 
         iv_1 = (ImageView) findViewById(R.id.im_1);
         iv_2 = (ImageView) findViewById(R.id.im_2);
@@ -559,6 +566,7 @@ public class MainActivityL3 extends AppCompatActivity {
 
         cpuPoints++;
         tv_tried.setText("Tried: "+cpuPoints);
+        score.setText("Score: "+df.format(40 * (double)playerPoints/cpuPoints));
 
         iv_1.setEnabled(true);
         iv_2.setEnabled(true);
@@ -608,26 +616,68 @@ public class MainActivityL3 extends AppCompatActivity {
             highscore = MediaPlayer.create(MainActivityL3.this,R.raw.but_highscore);
             highscore.start();
 
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivityL3.this);
-            alertDialogBuilder
-                    .setTitle("Congratulations")
-                    .setMessage("Number of paired: "+playerPoints+"\nNumber of attempts: "+cpuPoints+"\nAccuracy: "+ df.format ((double)playerPoints/cpuPoints)+"\nScore of this level: "+ df.format(40 * (double)playerPoints/cpuPoints))
-                    .setCancelable(false)
-                    .setPositiveButton("See your result", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getApplicationContext(), EndingScreen.class);
-                            score3 = 40 * (double)playerPoints/cpuPoints + score2;
-                            intent.putExtra("Value3",score3);
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+            showReward();
 
         }
+    }
+
+    public void showGuide() {
+        final Dialog dialog=new Dialog(MainActivityL3.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.guidel2_dialog);
+        Button home_guide=dialog.findViewById(R.id.home_guide);
+        Button sure_guide=dialog.findViewById(R.id.sure_guide);
+        TextView guideShow=dialog.findViewById(R.id.guideShow);
+        guideShow.setText("Congratulations to level-3, here are more question cards than last level, Good luck");
+
+        home_guide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomePage2_2.class);
+                intent.putExtra("Value1",score2-score1);
+                intent.putExtra("Value2",score1);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        sure_guide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goodluck = MediaPlayer.create(MainActivityL3.this,R.raw.but_goodluck);
+                goodluck.start();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    public void showReward() {
+        final Dialog dialog=new Dialog(MainActivityL3.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.reward_dialog_l3);
+        Button home_guide=dialog.findViewById(R.id.home_guide);
+        Button sure_guide=dialog.findViewById(R.id.sure_guide);
+        TextView tv_paired=dialog.findViewById(R.id.tv_paired);
+        TextView tv_tried=dialog.findViewById(R.id.tv_tried);
+        TextView tv_accuracy=dialog.findViewById(R.id.tv_accuracy);
+        TextView tv_score=dialog.findViewById(R.id.tv_score);
+        tv_paired.setText("Number of paired: "+playerPoints);
+        tv_tried.setText("Number of tired: "+cpuPoints);
+        tv_accuracy.setText("Accuracy: "+df.format ((double)playerPoints/cpuPoints));
+        tv_score.setText("Score: "+df.format(40 * (double)playerPoints/cpuPoints));
+
+        sure_guide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), EndingScreen.class);
+                score3 = 40 * (double)playerPoints/cpuPoints + score2;
+                intent.putExtra("Value3",score3);
+                startActivity(intent);
+                finish();
+            }
+        });
+        dialog.show();
     }
 
     @Override

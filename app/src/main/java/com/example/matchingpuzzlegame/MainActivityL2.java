@@ -3,12 +3,14 @@ package com.example.matchingpuzzlegame;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -28,8 +30,10 @@ public class MainActivityL2 extends AppCompatActivity {
     MediaPlayer great;
 
     Button restart;
+    Button home;
     private View decorView;
     TextView tv_tried, tv_correct;
+    TextView score;
     ImageView iv_1, iv_2, iv_3, iv_4, iv_5, iv_6, iv_7, iv_8, iv_9, iv_10, iv_11, iv_12, iv_13, iv_14, iv_15, iv_16;
 
     Integer [] cardsArray = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16};
@@ -41,7 +45,7 @@ public class MainActivityL2 extends AppCompatActivity {
 
     int playerPoints = 0, cpuPoints = 0;
 
-    DecimalFormat df = new DecimalFormat("######0.00");
+    DecimalFormat df = new DecimalFormat("######0.0");
 
     double score2;
     double score1;
@@ -66,20 +70,7 @@ public class MainActivityL2 extends AppCompatActivity {
             }
         });
 
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivityL2.this);
-        alertDialogBuilder
-                .setTitle("Congratulations to level 2")
-                .setMessage("Here will be more question cards than last level, which number is 16.\n\nTry your best.")
-                .setCancelable(false)
-                .setPositiveButton("SURE", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        goodluck = MediaPlayer.create(MainActivityL2.this,R.raw.but_goodluck);
-                        goodluck.start();
-                    }
-                });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+        showGuide();
 
         restart = (Button)findViewById(R.id.restart);
         restart.setOnClickListener(new View.OnClickListener() {
@@ -92,10 +83,21 @@ public class MainActivityL2 extends AppCompatActivity {
             }
         });
 
+        home = (Button)findViewById(R.id.home);
+        home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomePage1_2.class);
+                intent.putExtra("Value1",score1);
+                startActivity(intent);
+                finish();
+            }
+        });
 
 
         tv_tried = (TextView)findViewById(R.id.tv_tried);
         tv_correct = (TextView)findViewById(R.id.tv_correct);
+        score = (TextView)findViewById(R.id.score);
 
         iv_1 = (ImageView) findViewById(R.id.im_1);
         iv_2 = (ImageView) findViewById(R.id.im_2);
@@ -481,6 +483,7 @@ public class MainActivityL2 extends AppCompatActivity {
 
         cpuPoints++;
         tv_tried.setText("Tried: "+cpuPoints);
+        score.setText("Score: "+df.format(20 * (double)playerPoints/cpuPoints));
 
         iv_1.setEnabled(true);
         iv_2.setEnabled(true);
@@ -522,31 +525,79 @@ public class MainActivityL2 extends AppCompatActivity {
             highscore = MediaPlayer.create(MainActivityL2.this,R.raw.but_highscore);
             highscore.start();
 
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivityL2.this);
-            alertDialogBuilder
-                    .setTitle("Congratulations")
-                    .setMessage("Number of paired: "+playerPoints+"\nNumber of attempts: "+cpuPoints+"\nAccuracy: "+ df.format ((double)playerPoints/cpuPoints)+"\nScore: "+ df.format(16 * (double)playerPoints/cpuPoints))
-                    .setCancelable(false)
-                    .setPositiveButton("Next level", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getApplicationContext(), MainActivityL3.class);
-                            score2 = 20 * (double)playerPoints/cpuPoints + score1;
-                            intent.putExtra("Value2",score2);
-                            startActivity(intent);
-                            finish();
-                        }
-                    })
-                    .setNegativeButton("Quit", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    });
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
+            showReward();
 
         }
+    }
+
+    public void showGuide() {
+        final Dialog dialog=new Dialog(MainActivityL2.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.guidel2_dialog);
+        Button home_guide=dialog.findViewById(R.id.home_guide);
+        Button sure_guide=dialog.findViewById(R.id.sure_guide);
+        TextView guideShow=dialog.findViewById(R.id.guideShow);
+        guideShow.setText("Congratulations to level-2, here are more question cards than last level, Good luck");
+
+        home_guide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomePage1_2.class);
+                intent.putExtra("Value1",score1);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        sure_guide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goodluck = MediaPlayer.create(MainActivityL2.this,R.raw.but_goodluck);
+                goodluck.start();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    public void showReward() {
+        final Dialog dialog=new Dialog(MainActivityL2.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.reward_dialog);
+        Button home_guide=dialog.findViewById(R.id.home_guide);
+        Button sure_guide=dialog.findViewById(R.id.sure_guide);
+        TextView tv_paired=dialog.findViewById(R.id.tv_paired);
+        TextView tv_tried=dialog.findViewById(R.id.tv_tried);
+        TextView tv_accuracy=dialog.findViewById(R.id.tv_accuracy);
+        TextView tv_score=dialog.findViewById(R.id.tv_score);
+        tv_paired.setText("Number of paired: "+playerPoints);
+        tv_tried.setText("Number of tired: "+cpuPoints);
+        tv_accuracy.setText("Accuracy: "+df.format ((double)playerPoints/cpuPoints));
+        tv_score.setText("Score: "+df.format(20 * (double)playerPoints/cpuPoints));
+        home_guide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), HomePage2_2.class);
+                score2 = 20 * (double)playerPoints/cpuPoints;
+                intent.putExtra("Value1",score2);
+                intent.putExtra("Value2",score1);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        sure_guide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivityL3.class);
+                score2 = 20 * (double)playerPoints/cpuPoints + score1;
+                intent.putExtra("Value2",score2);
+                intent.putExtra("Value1",score1);
+                startActivity(intent);
+                finish();
+            }
+        });
+        dialog.show();
     }
 
     @Override

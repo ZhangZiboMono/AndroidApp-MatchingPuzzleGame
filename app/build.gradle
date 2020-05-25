@@ -8,8 +8,8 @@ android {
         applicationId "com.example.matchingpuzzlegame"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 19
-        versionName "3.5"
+        versionCode 40
+        versionName "5.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,6 +35,21 @@ dependencies {
 
 dependencies {
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.15'
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:+'
+    implementation 'androidx.constraintlayout:constraintlayout:+'
 }
 
 dependencies {

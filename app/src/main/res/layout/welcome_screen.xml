@@ -17,12 +17,11 @@
         android:layout_marginTop="45dp"
         android:layout_weight="0.8"
         android:background="#F57C00"
-        android:fontFamily="sans-serif-smallcaps"
+        android:fontFamily="@font/rammetto_one"
         android:gravity="center"
-        android:text="-Welcome to Matching Puzzle-"
+        android:text="Matching Puzzle Game"
         android:textColor="#FFFFFF"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/tv_2"
@@ -32,38 +31,39 @@
         android:layout_marginTop="5dp"
         android:layout_weight="0.9"
         android:background="#FBC02D"
-        android:fontFamily="casual"
+        android:fontFamily="@font/cherry_cream_soda"
         android:gravity="center"
         android:text="-Play with me-"
         android:textColor="#711C1C"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/welcome_gif"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="6"
+        android:layout_weight="6.2"
         android:layout_gravity="center" />
 
     <ImageView
         android:id="@+id/welcome_gif2"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.8"
         android:layout_gravity="center" />
 
     <Button
         android:id="@+id/button"
         style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="40dp"
-        android:fontFamily="sans-serif-smallcaps"
-        android:text="Click here\nLet game begin !"
+        android:background="@drawable/custom_button"
+        android:fontFamily="@font/rammetto_one"
+        android:padding="10dp"
+        android:text="Let the game begin !"
         android:textColor="#FFFFFF"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textSize="18sp" />
 
 </LinearLayout>

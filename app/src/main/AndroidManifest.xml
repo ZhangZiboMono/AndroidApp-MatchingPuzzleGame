@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EndingScreen">
-
-        </activity>
+        <activity android:name=".HomePage2_2"></activity>
+        <activity android:name=".HomePage1_2" />
+        <activity android:name=".HomePage" />
+        <activity android:name=".EndingScreen" />
         <activity android:name=".MainActivityL3" />
         <activity android:name=".MainActivityL2" />
         <activity android:name=".WelcomeScreen">
