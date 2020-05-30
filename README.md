@@ -4,8 +4,9 @@
 
 This is a 2-D matching game designed for kids with API 29. It has cute UI design and 3 simple levels for children to play with. Score of each level can be calculated at the end of each level. You can run this App on any android phone and download the source code to work on it using Android studio.
 
+> * [View a short video of this App on YouTube](https://youtu.be/kHon3w3cOEI)<br>
 > * Screenshot<br>
-> <img src="https://github.com/ZhangZiboMono/AndroidApp-MatchingPuzzleGame/blob/master/readme-gif.gif" alt="demo gif">
+> <img src="https://github.com/ZhangZiboMono/AndroidApp-MatchingPuzzleGame/blob/master/readme-gif.gif" width="420px" alt="demo gif">
 
  ***
  ### Installation
